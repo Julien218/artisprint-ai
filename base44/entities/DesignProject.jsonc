@@ -19,8 +19,7 @@
         "invitation",
         "cv",
         "couverture_livre"
-      ],
-      "description": "Type of print support"
+      ]
     },
     "dimensions": {
       "type": "string",
@@ -31,8 +30,7 @@
         "carre",
         "carte_visite",
         "personnalise"
-      ],
-      "description": "Paper dimensions"
+      ]
     },
     "orientation": {
       "type": "string",
@@ -73,6 +71,10 @@
     "contact_info": {
       "type": "string"
     },
+    "ai_instructions": {
+      "type": "string",
+      "description": "Custom instructions for the AI to follow strictly"
+    },
     "logo_url": {
       "type": "string"
     },
@@ -81,7 +83,6 @@
     },
     "logos": {
       "type": "array",
-      "description": "Multiple logos/brand images",
       "items": {
         "type": "object",
         "properties": {
@@ -96,7 +97,6 @@
     },
     "images": {
       "type": "array",
-      "description": "Multiple photos and images",
       "items": {
         "type": "object",
         "properties": {

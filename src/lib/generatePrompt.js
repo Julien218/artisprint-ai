@@ -79,6 +79,10 @@ export function buildDesignPrompt(data, isPremium = false) {
     prompt += ' Create an original graphic layout with strong visual elements, icons, and shapes.';
   }
 
+  if (data.ai_instructions) {
+    prompt += ` IMPORTANT INSTRUCTIONS TO FOLLOW STRICTLY: ${data.ai_instructions}.`;
+  }
+
   prompt += ' Print-ready quality, proper margins and bleed areas, professional typography hierarchy, cohesive visual design. High resolution, photorealistic mockup.';
 
   if (isPremium) {

@@ -86,6 +86,17 @@ export default function ContentEditor({ data, onChange }) {
         </div>
       </div>
 
+      <div className="space-y-2">
+        <Label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Instructions pour l'IA</Label>
+        <Textarea
+          value={data.ai_instructions || ''}
+          onChange={(e) => update('ai_instructions', e.target.value)}
+          placeholder="Ex: Mettre le logo en haut à gauche, fond sombre avec texte blanc, style épuré sans fioritures, police moderne..."
+          className="bg-card border-border min-h-[90px]"
+        />
+        <p className="text-[11px] text-muted-foreground">Ces instructions seront suivies en priorité par l'IA lors de la génération.</p>
+      </div>
+
       <Separator />
 
       <MediaUploader
