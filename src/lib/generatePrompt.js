@@ -9,6 +9,7 @@ const TYPE_PROMPTS = {
   invitation: 'an event invitation design, elegant and refined, ceremonial feel, beautiful typography',
   cv: 'a professional resume/CV design, clean and organized, modern professional layout, easy to scan',
   couverture_livre: 'a book cover design, captivating visual, genre-appropriate styling, compelling typography',
+  ticket_boissons: 'a drinks ticket / beverage voucher design, compact ticket format with perforated edge style, bold drink name, event branding, easy to read at a glance',
 };
 
 const STYLE_PROMPTS = {

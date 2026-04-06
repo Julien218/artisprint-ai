@@ -18,7 +18,8 @@
         "menu",
         "invitation",
         "cv",
-        "couverture_livre"
+        "couverture_livre",
+        "ticket_boissons"
       ]
     },
     "dimensions": {

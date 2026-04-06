@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { CreditCard, FileText, Image, BookOpen, Newspaper, Package, UtensilsCrossed, Mail, User, BookMarked } from 'lucide-react';
+import { CreditCard, FileText, Image, BookOpen, Newspaper, Package, UtensilsCrossed, Mail, User, BookMarked, Ticket } from 'lucide-react';
 
 const SUPPORT_TYPES = [
   { id: 'carte_visite', label: 'Carte de visite', icon: CreditCard, desc: 'Format compact & pro' },
@@ -13,6 +13,7 @@ const SUPPORT_TYPES = [
   { id: 'invitation', label: 'Invitation', icon: Mail, desc: 'Événement & cérémonie' },
   { id: 'cv', label: 'CV', icon: User, desc: 'Curriculum vitae' },
   { id: 'couverture_livre', label: 'Couverture', icon: BookMarked, desc: 'Livre & ebook' },
+  { id: 'ticket_boissons', label: 'Ticket boissons', icon: Ticket, desc: 'Bon & ticket événement' },
 ];
 
 export default function SupportTypeSelector({ value, onChange }) {
