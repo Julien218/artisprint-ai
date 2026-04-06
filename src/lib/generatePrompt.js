@@ -28,6 +28,7 @@ const DIM_PROMPTS = {
   A3: '297x420mm A3 large format',
   carre: '210x210mm square format',
   carte_visite: '85x55mm business card format',
+  ticket: '210x99mm ticket format (A4 folded in 3, landscape strip)',
   personnalise: 'custom format',
 };
 

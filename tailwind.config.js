@@ -91,7 +91,7 @@ module.exports = {
   },
   safelist: [
     'aspect-[210/297]', 'aspect-[297/210]', 'aspect-[148/210]', 'aspect-[210/148]',
-    'aspect-[297/420]', 'aspect-[420/297]', 'aspect-square', 'aspect-[55/85]', 'aspect-[85/55]',
+    'aspect-[297/420]', 'aspect-[420/297]', 'aspect-square', 'aspect-[55/85]', 'aspect-[85/55]', 'aspect-[210/99]',
   ],
   plugins: [require("tailwindcss-animate")],
 }

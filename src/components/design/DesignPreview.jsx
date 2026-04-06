@@ -14,6 +14,8 @@ const ASPECT_RATIOS = {
   carre_paysage: 'aspect-square',
   carte_visite_portrait: 'aspect-[55/85]',
   carte_visite_paysage: 'aspect-[85/55]',
+  ticket_portrait: 'aspect-[210/99]',
+  ticket_paysage: 'aspect-[210/99]',
   personnalise_portrait: 'aspect-[210/297]',
   personnalise_paysage: 'aspect-[297/210]',
 };

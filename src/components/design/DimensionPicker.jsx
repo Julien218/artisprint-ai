@@ -9,6 +9,7 @@ const DIMENSIONS = [
   { id: 'A3', label: 'A3', size: '297 × 420 mm' },
   { id: 'carre', label: 'Carré', size: '210 × 210 mm' },
   { id: 'carte_visite', label: 'Carte visite', size: '85 × 55 mm' },
+  { id: 'ticket', label: 'Ticket', size: '210 × 99 mm' },
   { id: 'personnalise', label: 'Personnalisé', size: 'Sur mesure' },
 ];
 
