@@ -102,8 +102,10 @@ export default function ContentEditor({ data, onChange }) {
       <MediaUploader
         images={data.images || []}
         logos={data.logos || []}
+        templateUrl={data.template_url || ''}
         onImagesChange={(v) => update('images', v)}
         onLogosChange={(v) => update('logos', v)}
+        onTemplateChange={(v) => update('template_url', v)}
       />
     </div>
   );

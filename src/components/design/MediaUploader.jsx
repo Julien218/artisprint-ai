@@ -1,20 +1,31 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Upload, X, Image, Star, Loader2, Plus } from 'lucide-react';
+import { Upload, X, Image, Star, Loader2, Plus, LayoutTemplate } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
 
-export default function MediaUploader({ images = [], logos = [], onImagesChange, onLogosChange }) {
+export default function MediaUploader({ images = [], logos = [], templateUrl = '', onImagesChange, onLogosChange, onTemplateChange }) {
   const [uploadingImg, setUploadingImg] = useState(false);
   const [uploadingLogo, setUploadingLogo] = useState(false);
+  const [uploadingTemplate, setUploadingTemplate] = useState(false);
 
   const handleUpload = async (e, type) => {
     const files = Array.from(e.target.files);
     if (!files.length) return;
 
     if (type === 'logo') setUploadingLogo(true);
+    else if (type === 'template') setUploadingTemplate(true);
     else setUploadingImg(true);
+
+    if (type === 'template') {
+      const file = files[0];
+      const { file_url } = await base44.integrations.Core.UploadFile({ file });
+      onTemplateChange(file_url);
+      setUploadingTemplate(false);
+      e.target.value = '';
+      return;
+    }
 
     const uploaded = await Promise.all(
       files.map(async (file) => {
@@ -40,6 +51,52 @@ export default function MediaUploader({ images = [], logos = [], onImagesChange,
 
   return (
     <div className="space-y-5">
+
+      {/* Template / gabarit section */}
+      <div className="space-y-3">
+        <div className="flex items-center gap-2">
+          <Label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Modèle de base (gabarit)</Label>
+          {templateUrl && <Badge variant="secondary" className="text-[10px]">Importé ✓</Badge>}
+        </div>
+        <p className="text-[11px] text-muted-foreground">Importez un design existant — l'IA reproduira exactement sa mise en forme en remplaçant le contenu par le vôtre.</p>
+
+        {templateUrl ? (
+          <div className="relative rounded-xl overflow-hidden border-2 border-primary/40 bg-card shadow-sm group">
+            <img src={templateUrl} alt="Modèle de base" className="w-full max-h-48 object-contain p-2" />
+            <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+              <button
+                onClick={() => onTemplateChange('')}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-destructive text-destructive-foreground text-xs font-medium"
+              >
+                <X className="w-3.5 h-3.5" /> Supprimer le modèle
+              </button>
+            </div>
+            <div className="absolute top-2 left-2 bg-primary/90 text-primary-foreground text-[10px] font-bold px-2 py-0.5 rounded-full">GABARIT</div>
+          </div>
+        ) : (
+          <label className={`flex items-center justify-center gap-3 p-5 rounded-xl border-2 border-dashed transition-all cursor-pointer ${uploadingTemplate ? 'border-primary bg-primary/5' : 'border-primary/30 hover:border-primary/60 hover:bg-primary/5'}`}>
+            {uploadingTemplate ? (
+              <>
+                <Loader2 className="w-5 h-5 text-primary animate-spin" />
+                <span className="text-sm text-primary font-medium">Upload en cours...</span>
+              </>
+            ) : (
+              <>
+                <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                  <LayoutTemplate className="w-5 h-5 text-primary" />
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-foreground">Importer un modèle de base</p>
+                  <p className="text-xs text-muted-foreground">JPG, PNG, PDF — la mise en forme sera reproduite à l'identique</p>
+                </div>
+                <Upload className="w-4 h-4 text-muted-foreground ml-auto" />
+              </>
+            )}
+            <input type="file" accept="image/*" className="hidden" onChange={(e) => handleUpload(e, 'template')} disabled={uploadingTemplate} />
+          </label>
+        )}
+      </div>
+
       {/* Logos section */}
       <div className="space-y-3">
         <div className="flex items-center gap-2">

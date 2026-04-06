@@ -34,11 +34,13 @@ const DIM_PROMPTS = {
 
 export function getAllMediaUrls(data) {
   const urls = [];
+  // Template first so the AI sees the layout reference first
+  if (data.template_url) urls.push(data.template_url);
   if (data.logos?.length) data.logos.forEach(l => urls.push(l.url));
   if (data.images?.length) data.images.forEach(i => urls.push(i.url));
   // fallback legacy fields
-  if (!urls.length && data.logo_url) urls.push(data.logo_url);
-  if (!urls.length && data.reference_image_url) urls.push(data.reference_image_url);
+  if (data.logo_url && !data.logos?.length) urls.push(data.logo_url);
+  if (data.reference_image_url && !data.images?.length) urls.push(data.reference_image_url);
   return urls;
 }
 
@@ -48,7 +50,11 @@ export function buildDesignPrompt(data, isPremium = false) {
   const dimDesc = DIM_PROMPTS[data.dimensions] || '';
   const orient = data.orientation === 'paysage' ? 'landscape orientation' : 'portrait orientation';
 
-  let prompt = `Create ${typeDesc}. ${dimDesc}, ${orient}. Style: ${styleDesc}.`;
+  const hasTemplate = !!data.template_url;
+
+  let prompt = hasTemplate
+    ? `CRITICAL: The first image provided is a LAYOUT TEMPLATE / BASE MODEL. Reproduce its exact layout, structure, proportions, zones and visual hierarchy pixel-for-pixel. Only replace: text content with the new texts below, logos with the provided logos, photos with the provided photos, colors with the brand colors below. Do NOT change the grid, the zones positions, the spacing, the font sizes ratios, or any structural element. Output: ${typeDesc}, ${dimDesc}, ${orient}.`
+    : `Create ${typeDesc}. ${dimDesc}, ${orient}. Style: ${styleDesc}.`;
 
   if (data.primary_color) {
     prompt += ` Use ${data.primary_color} as primary brand color.`;

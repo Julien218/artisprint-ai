@@ -77,6 +77,10 @@
       "type": "string",
       "description": "Custom instructions for the AI to follow strictly"
     },
+    "template_url": {
+      "type": "string",
+      "description": "Base layout template image \u2014 AI will reproduce this layout exactly"
+    },
     "logo_url": {
       "type": "string"
     },
