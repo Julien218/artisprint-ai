@@ -98,24 +98,30 @@ export default function Studio() {
 
     const prompt = buildDesignPrompt(formData);
     const premiumPrompt = buildDesignPrompt(formData, true);
-
     const refImages = getAllMediaUrls(formData);
 
-    const [result, premiumResult] = await Promise.all([
-      base44.integrations.Core.GenerateImage({
-        prompt,
-        ...(refImages.length > 0 && { existing_image_urls: refImages }),
-      }),
-      base44.integrations.Core.GenerateImage({
-        prompt: premiumPrompt,
-        ...(refImages.length > 0 && { existing_image_urls: refImages }),
-      }),
+    // Determine best size based on orientation
+    const isLandscape = formData.orientation === 'paysage';
+    const size = isLandscape ? '1792x1024' : '1024x1792';
+
+    const generateOne = (p, quality = 'standard') =>
+      base44.functions.invoke('generateImage', {
+        prompt: p,
+        file_urls: refImages,
+        size,
+        quality,
+      }).then((res) => res.data.image_url);
+
+    // Generate standard + premium in parallel
+    const [imageUrl, premiumUrl] = await Promise.all([
+      generateOne(prompt, 'standard'),
+      generateOne(premiumPrompt, 'hd'),
     ]);
 
     const updatedData = {
       ...formData,
-      generated_image_url: result.url,
-      generated_premium_url: premiumResult.url,
+      generated_image_url: imageUrl,
+      generated_premium_url: premiumUrl,
       prompt_used: prompt,
       status: 'completed',
     };
