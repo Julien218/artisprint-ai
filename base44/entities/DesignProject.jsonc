@@ -56,44 +56,64 @@
       "default": "moderne"
     },
     "primary_color": {
-      "type": "string",
-      "description": "Primary brand color hex"
+      "type": "string"
     },
     "secondary_color": {
-      "type": "string",
-      "description": "Secondary brand color hex"
+      "type": "string"
     },
     "title_text": {
-      "type": "string",
-      "description": "Main title text"
+      "type": "string"
     },
     "subtitle_text": {
-      "type": "string",
-      "description": "Subtitle text"
+      "type": "string"
     },
     "body_text": {
-      "type": "string",
-      "description": "Body content text"
+      "type": "string"
     },
     "contact_info": {
-      "type": "string",
-      "description": "Contact information"
+      "type": "string"
     },
     "logo_url": {
-      "type": "string",
-      "description": "Uploaded logo URL"
+      "type": "string"
     },
     "reference_image_url": {
-      "type": "string",
-      "description": "Reference image URL"
+      "type": "string"
+    },
+    "logos": {
+      "type": "array",
+      "description": "Multiple logos/brand images",
+      "items": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "images": {
+      "type": "array",
+      "description": "Multiple photos and images",
+      "items": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      }
     },
     "generated_image_url": {
-      "type": "string",
-      "description": "AI generated design URL"
+      "type": "string"
     },
     "generated_premium_url": {
-      "type": "string",
-      "description": "Premium version URL"
+      "type": "string"
     },
     "status": {
       "type": "string",
@@ -105,12 +125,38 @@
       "default": "draft"
     },
     "prompt_used": {
-      "type": "string",
-      "description": "The prompt used for generation"
+      "type": "string"
     }
   },
   "required": [
     "title",
     "support_type"
-  ]
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "write": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
 }

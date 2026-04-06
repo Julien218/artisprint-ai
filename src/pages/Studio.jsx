@@ -15,7 +15,7 @@ import DimensionPicker from '@/components/design/DimensionPicker';
 import StylePicker from '@/components/design/StylePicker';
 import ContentEditor from '@/components/design/ContentEditor';
 import DesignPreview from '@/components/design/DesignPreview';
-import { buildDesignPrompt } from '@/lib/generatePrompt';
+import { buildDesignPrompt, getAllMediaUrls } from '@/lib/generatePrompt';
 
 export default function Studio() {
   const navigate = useNavigate();
@@ -99,7 +99,7 @@ export default function Studio() {
     const prompt = buildDesignPrompt(formData);
     const premiumPrompt = buildDesignPrompt(formData, true);
 
-    const refImages = [formData.logo_url, formData.reference_image_url].filter(Boolean);
+    const refImages = getAllMediaUrls(formData);
 
     const [result, premiumResult] = await Promise.all([
       base44.integrations.Core.GenerateImage({

@@ -30,6 +30,16 @@ const DIM_PROMPTS = {
   personnalise: 'custom format',
 };
 
+export function getAllMediaUrls(data) {
+  const urls = [];
+  if (data.logos?.length) data.logos.forEach(l => urls.push(l.url));
+  if (data.images?.length) data.images.forEach(i => urls.push(i.url));
+  // fallback legacy fields
+  if (!urls.length && data.logo_url) urls.push(data.logo_url);
+  if (!urls.length && data.reference_image_url) urls.push(data.reference_image_url);
+  return urls;
+}
+
 export function buildDesignPrompt(data, isPremium = false) {
   const typeDesc = TYPE_PROMPTS[data.support_type] || 'a professional print design';
   const styleDesc = STYLE_PROMPTS[data.style] || STYLE_PROMPTS.moderne;
@@ -55,6 +65,18 @@ export function buildDesignPrompt(data, isPremium = false) {
   }
   if (data.contact_info) {
     prompt += ` Contact info to include: "${data.contact_info}".`;
+  }
+
+  const logoCount = data.logos?.length || 0;
+  const imageCount = data.images?.length || 0;
+  if (logoCount > 0) {
+    prompt += ` Incorporate ${logoCount} logo(s) provided — place the main logo prominently, others as secondary brand elements.`;
+  }
+  if (imageCount > 0) {
+    prompt += ` Use all ${imageCount} photo(s) in a modern auto-layout: creative grid, masonry, full-bleed, or editorial magazine-style arrangement depending on the support type. Make it visually striking and professional.`;
+  }
+  if (logoCount === 0 && imageCount === 0) {
+    prompt += ' Create an original graphic layout with strong visual elements, icons, and shapes.';
   }
 
   prompt += ' Print-ready quality, proper margins and bleed areas, professional typography hierarchy, cohesive visual design. High resolution, photorealistic mockup.';
