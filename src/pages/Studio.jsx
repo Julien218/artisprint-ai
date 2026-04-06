@@ -247,6 +247,11 @@ export default function Studio() {
             <ChevronLeft className="w-4 h-4" />
             <span className="text-sm font-medium">Retour</span>
           </button>
+          <img
+            src="https://media.base44.com/images/public/69d3271c4908d4dee7ca0aea/e97fc4c51_ChatGPTImage6avr202615_40_48.png"
+            alt="ADN Studio"
+            className="h-9 w-auto absolute left-1/2 -translate-x-1/2"
+          />
           <StepIndicator currentStep={step} onStepClick={setStep} />
           <div className="w-20" />
         </div>

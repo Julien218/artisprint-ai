@@ -32,14 +32,12 @@ export default function Home() {
       {/* Header */}
       <header className="border-b border-border bg-card/50 backdrop-blur-xl sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center">
-              <Sparkles className="w-5 h-5 text-primary-foreground" />
-            </div>
-            <div>
-              <h1 className="text-lg font-bold font-display tracking-tight">PrintForge</h1>
-              <p className="text-[10px] text-muted-foreground font-medium uppercase tracking-widest">Design Studio</p>
-            </div>
+          <div className="flex items-center gap-2">
+            <img
+              src="https://media.base44.com/images/public/69d3271c4908d4dee7ca0aea/e97fc4c51_ChatGPTImage6avr202615_40_48.png"
+              alt="ADN Studio"
+              className="h-10 w-auto"
+            />
           </div>
           <Button onClick={() => navigate('/studio')} className="gap-2 rounded-xl shadow-lg shadow-primary/20">
             <Plus className="w-4 h-4" /> Nouveau design
