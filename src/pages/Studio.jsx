@@ -108,24 +108,30 @@ export default function Studio() {
         quality,
       }).then((res) => res.data.image_url);
 
-    // Generate standard + premium in parallel
-    const [imageUrl, premiumUrl] = await Promise.all([
-      generateOne(prompt, 'standard'),
-      generateOne(premiumPrompt, 'standard'),
-    ]);
+    try {
+      // Generate standard + premium in parallel
+      const [imageUrl, premiumUrl] = await Promise.all([
+        generateOne(prompt, 'standard'),
+        generateOne(premiumPrompt, 'standard'),
+      ]);
 
-    const updatedData = {
-      ...formData,
-      generated_image_url: imageUrl,
-      generated_premium_url: premiumUrl,
-      prompt_used: prompt,
-      status: 'completed',
-    };
+      const updatedData = {
+        ...formData,
+        generated_image_url: imageUrl,
+        generated_premium_url: premiumUrl,
+        prompt_used: prompt,
+        status: 'completed',
+      };
 
-    setFormData(updatedData);
-    await saveMutation.mutateAsync(updatedData);
-    setIsGenerating(false);
-    toast.success('Design généré avec succès !');
+      setFormData(updatedData);
+      await saveMutation.mutateAsync(updatedData);
+      toast.success('Design généré avec succès !');
+    } catch (err) {
+      toast.error('Erreur lors de la génération : ' + (err?.response?.data?.error || err.message));
+      setFormData((prev) => ({ ...prev, status: 'draft' }));
+    } finally {
+      setIsGenerating(false);
+    }
   };
 
   const handleRegenerate = () => {
