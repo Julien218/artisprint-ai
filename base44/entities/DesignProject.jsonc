@@ -1,0 +1,116 @@
+{
+  "name": "DesignProject",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Project name"
+    },
+    "support_type": {
+      "type": "string",
+      "enum": [
+        "carte_visite",
+        "flyer",
+        "affiche",
+        "brochure",
+        "magazine",
+        "packaging",
+        "menu",
+        "invitation",
+        "cv",
+        "couverture_livre"
+      ],
+      "description": "Type of print support"
+    },
+    "dimensions": {
+      "type": "string",
+      "enum": [
+        "A4",
+        "A5",
+        "A3",
+        "carre",
+        "carte_visite",
+        "personnalise"
+      ],
+      "description": "Paper dimensions"
+    },
+    "orientation": {
+      "type": "string",
+      "enum": [
+        "portrait",
+        "paysage"
+      ],
+      "default": "portrait"
+    },
+    "style": {
+      "type": "string",
+      "enum": [
+        "premium",
+        "moderne",
+        "minimaliste",
+        "fun",
+        "luxe",
+        "retro",
+        "corporate"
+      ],
+      "default": "moderne"
+    },
+    "primary_color": {
+      "type": "string",
+      "description": "Primary brand color hex"
+    },
+    "secondary_color": {
+      "type": "string",
+      "description": "Secondary brand color hex"
+    },
+    "title_text": {
+      "type": "string",
+      "description": "Main title text"
+    },
+    "subtitle_text": {
+      "type": "string",
+      "description": "Subtitle text"
+    },
+    "body_text": {
+      "type": "string",
+      "description": "Body content text"
+    },
+    "contact_info": {
+      "type": "string",
+      "description": "Contact information"
+    },
+    "logo_url": {
+      "type": "string",
+      "description": "Uploaded logo URL"
+    },
+    "reference_image_url": {
+      "type": "string",
+      "description": "Reference image URL"
+    },
+    "generated_image_url": {
+      "type": "string",
+      "description": "AI generated design URL"
+    },
+    "generated_premium_url": {
+      "type": "string",
+      "description": "Premium version URL"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "generating",
+        "completed"
+      ],
+      "default": "draft"
+    },
+    "prompt_used": {
+      "type": "string",
+      "description": "The prompt used for generation"
+    }
+  },
+  "required": [
+    "title",
+    "support_type"
+  ]
+}

@@ -4,6 +4,10 @@ module.exports = {
     content: ["./index.html", "./src/**/*.{ts,tsx,js,jsx}"],
   theme: {
   	extend: {
+  		fontFamily: {
+  			sans: ['var(--font-sans)'],
+  			display: ['var(--font-display)'],
+  		},
   		borderRadius: {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
@@ -85,5 +89,9 @@ module.exports = {
   		}
   	}
   },
+  safelist: [
+    'aspect-[210/297]', 'aspect-[297/210]', 'aspect-[148/210]', 'aspect-[210/148]',
+    'aspect-[297/420]', 'aspect-[420/297]', 'aspect-square', 'aspect-[55/85]', 'aspect-[85/55]',
+  ],
   plugins: [require("tailwindcss-animate")],
 }
