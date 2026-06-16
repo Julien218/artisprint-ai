@@ -100,38 +100,36 @@ export default function Studio() {
     const premiumPrompt = buildDesignPrompt(formData, true);
     const refImages = getAllMediaUrls(formData);
 
+    // Determine best size based on orientation
+    const isLandscape = formData.orientation === 'paysage';
+    const size = isLandscape ? '1792x1024' : '1024x1792';
+
     const generateOne = (p, quality = 'standard') =>
       base44.functions.invoke('generateImage', {
         prompt: p,
         file_urls: refImages,
-        size: '1024x1024',
+        size,
         quality,
       }).then((res) => res.data.image_url);
 
-    try {
-      // Generate standard + premium in parallel
-      const [imageUrl, premiumUrl] = await Promise.all([
-        generateOne(prompt, 'standard'),
-        generateOne(premiumPrompt, 'standard'),
-      ]);
+    // Generate standard + premium in parallel
+    const [imageUrl, premiumUrl] = await Promise.all([
+      generateOne(prompt, 'standard'),
+      generateOne(premiumPrompt, 'hd'),
+    ]);
 
-      const updatedData = {
-        ...formData,
-        generated_image_url: imageUrl,
-        generated_premium_url: premiumUrl,
-        prompt_used: prompt,
-        status: 'completed',
-      };
+    const updatedData = {
+      ...formData,
+      generated_image_url: imageUrl,
+      generated_premium_url: premiumUrl,
+      prompt_used: prompt,
+      status: 'completed',
+    };
 
-      setFormData(updatedData);
-      await saveMutation.mutateAsync(updatedData);
-      toast.success('Design généré avec succès !');
-    } catch (err) {
-      toast.error('Erreur lors de la génération : ' + (err?.response?.data?.error || err.message));
-      setFormData((prev) => ({ ...prev, status: 'draft' }));
-    } finally {
-      setIsGenerating(false);
-    }
+    setFormData(updatedData);
+    await saveMutation.mutateAsync(updatedData);
+    setIsGenerating(false);
+    toast.success('Design généré avec succès !');
   };
 
   const handleRegenerate = () => {
